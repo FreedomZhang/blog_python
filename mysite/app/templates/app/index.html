@@ -1,0 +1,9 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% for foo in article %}
+<h1>标题：{{ foo.titele }}</h1>
+    <h4>分类：{{ foo.className }}</h4>
+    <p>{{ foo.article }}</p>
+    <p>创建时间：{{ foo.releaseTime }}</p>
+{% endfor %}
+{% endblock content %}
