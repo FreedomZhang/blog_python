@@ -4,4 +4,4 @@ from .models import Tclass,Title,Tstate,Article
 
 admin.site.register(Tstate)
 admin.site.register(Article)
-
+admin.site.register(Tclass)
