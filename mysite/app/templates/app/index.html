@@ -5,7 +5,7 @@
             <div class="col-md-8">
                 {% for foo in article %}
                     <div class="jumbotron" >
-                        <h2>标题：{{ foo.titele }}</h2>
+                        <h2><a href="{% url 'detail' foo.id %}">标题：{{ foo.titele }}</a></h2>
                         <p><span class="glyphicon glyphicon-tag"></span>{{  foo.className }}  &nbsp;&nbsp;&nbsp;&nbsp;
                             <span class="glyphicon glyphicon-calendar">:</span>{{ foo.releaseTime }}
                         </p>
