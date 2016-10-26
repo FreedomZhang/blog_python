@@ -1,0 +1,110 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'syntaxhighlighter/styles/shThemeDefault.css' %}">
+    <link rel="stylesheet" href="{% static 'prism/Okaidia.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'tinymce/langs/zh_CN.js' %}"></script>
+    <script src="{% static 'syntaxhighlighter/scripts/shCore.js' %}"></script>
+    <script src="{% static 'tinymce/plugins/code/plugin.min.js' %}"></script>
+    <script src="{% static 'prism/prism.js' %}"></script>
+
+    <style type="text/css">
+        .cln{
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+ <form method="post" action="{% url 'addArticle' %}" class="form-add" role="form">{% csrf_token %}
+<div>
+    <h4>添加标题</h4>
+    <input type="text" class="form-control" placeholder="标题" name="titele" id="titele">
+</div>
+
+<div class="cln">
+    <textarea id="mytextarea" style="height:300px;" class="form-control" name="article" id="article">请输入内容</textarea>
+</div>
+
+<div class="cln">
+    {% for foo in tlable %}
+    <label class="checkbox-inline">
+        <input type="checkbox" id="inlineCheckbox1" value="{{ foo.labelName }}" name="labelname"> {{ foo.labelName }}
+    </label>
+    {% endfor %}
+</div>
+
+
+<div class="cln">
+    <select class="form-control" id="selClass">
+        {% for tclas in tclass %}
+                <option>{{ tclas.className }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+ <div style="display: none;" >
+     <input type="text" name="className" id="className">
+     <input type="text" name="labels" id="labels">
+ </div>
+
+<button type="button" class="btn btn-default" id="btn">保存</button>
+ </form>
+</body>
+<script type="text/javascript">
+    tinymce.init({
+        selector: 'textarea',  // change this value according to your HTML
+        plugin: 'a_tinymce_plugin',
+        a_plugin_option: true,
+        a_configuration_option: 400,
+        plugins: [
+            'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'save table contextmenu directionality emoticons template paste textcolor',
+            "insertdatetime table contextmenu paste addmore",
+            "codesample",
+
+        ],
+        language:'zh_CN',
+        codesample_languages: [
+            {text: 'HTML/XML', value: 'markup'},
+            {text: 'JavaScript', value: 'javascript'},
+            {text: 'CSS', value: 'css'},
+            {text: 'PHP', value: 'php'},
+            {text: 'Ruby', value: 'ruby'},
+            {text: 'Python', value: 'python'},
+            {text: 'Java', value: 'java'},
+            {text: 'C', value: 'c'},
+            {text: 'C#', value: 'csharp'},
+            {text: 'C++', value: 'cpp'}
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter" +
+        " alignright alignjustify | bullist numlist outdent indent | preview link image sh4tinymce"+"| codesample"
+    });
+</script>
+
+<script type="text/javascript">
+
+    function cheklable() {
+        var chk_value =[];
+        $('input[name="labelname"]:checked').each(function () {
+            chk_value.push($(this).val());
+        });
+        return chk_value;
+}
+
+$('#btn').click(function () {
+     var tclass= $("#selClass  option:selected").text();
+    $('#className').val(tclass);
+    $('#labels').val(cheklable());
+    $('.form-add').submit();
+})
+
+</script>
+</html>

@@ -48,11 +48,11 @@ LabelID	LabelName	Remarks	Reserve1	Reserve2
 '''
 #标签
 class Label(models.Model):
-    labelID=models.CharField('ID',default='',max_length=50)
+    labelID=models.CharField('ID',default='',max_length=50,blank=True)
     labelName=models.CharField('标签名称',max_length=50)
-    remarks = models.TextField('备注', max_length=500)
-    reserve1 = models.CharField('预留字段1', max_length=100)
-    reserve2 = models.CharField('预留字段2', max_length=100)
+    remarks = models.TextField('备注', max_length=500,blank=True)
+    reserve1 = models.CharField('预留字段1', max_length=100,blank=True)
+    reserve2 = models.CharField('预留字段2', max_length=100,blank=True)
     def __str__(self):
         return  self.labelName
 

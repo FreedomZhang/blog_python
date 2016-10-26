@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <link rel="stylesheet" href="{% static 'dist/css/bootstrap.css' %}">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'dist/js/bootstrap.js' %}"></script>
+</head>
+<body>
+<table class="table table-hover">
+    <tr>
+        <td>标题</td>
+        <td>分类</td>
+        <td>标签</td>
+        <td>操作</td>
+    </tr>
+
+        {% for foo in article %}
+            <tr>
+            <td>{{ foo.titele }}</td>
+            <td>{{ foo.className }}</td>
+            <td>{{ foo.labels }}</td>
+            <td>
+                <span><button type="button" class="btn btn-info">删除</button></span>
+                <span><button type="button" class="btn btn-info">修改</button></span>
+            </td>
+            </tr>
+        {% endfor %}
+
+
+</table>
+</body>
+</html>

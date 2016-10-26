@@ -14,22 +14,14 @@
     <script src="{% static 'dist/js/bootstrap.js' %}"></script>
     <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
     <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
-
-    <title>admin</title>
-
-
-
-
-
+    <title>管理</title>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
-
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -51,27 +43,24 @@
         </div>
     </div>
 </nav>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">菜单</a></li>
-                <li><a href="#">菜单</a></li>
-                <li><a href="#">菜单</a></li>
-                <li><a href="#">菜单</a></li>
+                <li class="active" target="iframecon"><a href="#">菜单</a></li>
+                <li><a href="{% url 'articlelist' %}" target="iframecon">菜单</a></li>
+                <li><a href="#" target="iframecon">菜单</a></li>
+                <li><a href="#" target="iframecon">菜单</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <iframe src="{% url 'add' %}" id="iframecon" name="iframecon" scrolling="no" style="height: 1000px;width:100%;"  frameborder="0">
 
+            </iframe>
         </div>
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
 </body>
+
 </html>

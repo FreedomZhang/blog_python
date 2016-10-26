@@ -1,10 +1,12 @@
 #coding:utf-8
 from django.shortcuts import render,get_object_or_404
-from .models import Article,Tclass
+from .models import Article,Tclass,Label
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponseRedirect
-
+from django.utils import timezone
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 
 def index(request):
     article=Article.objects.all()
@@ -33,6 +35,28 @@ def log_in(request):
 
         else:
             return render(request,'app/signin.html',{})
+
+@login_required
+def addArticle(request):
+    if request.method=='GET':
+        return render(request,'',{})
+    if request.method=='POST':
+        titele =request.POST['titele']
+        article =request.POST['article']
+        className =request.POST['className']
+        labels =request.POST['labels']
+        releaseTime=timezone.now()
+        obj=Article(titele=titele,article=article,className=className,labels=labels,releaseTime=releaseTime)
+        obj.save()
+        return redirect(reverse('articlelist'))
+
+
+@login_required
+def addview(request):
+    tclass=Tclass.objects.all()
+    tlable=Label.objects.all()
+    return  render(request,'app/addArticle.html',{'tclass':tclass,'tlable':tlable})
+
 @login_required
 def admin_base(request):
     return  render(request,'app/admin_base.html',{})
@@ -45,3 +69,9 @@ def log_out(request):
 #@login_required
 def aedit(request):
     pass
+
+
+def articlelist(request):
+    article=Article.objects.all()
+    return  render(request,'app/articlelist.html',{'article':article})
+

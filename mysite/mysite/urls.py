@@ -24,5 +24,8 @@ urlpatterns = [
     url(r'^detail/(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^login/',views.login_index,name='login'),
     url(r'^admint/',views.log_in,name='log_in'),
-    url(r'^admin_base/',views.admin_base,name='admin_base')
+    url(r'^admin_base/',views.admin_base,name='admin_base'),
+    url(r'^add/',views.addview,name='add'),
+    url(r'^addArticle/',views.addArticle,name='addArticle'),
+    url(r'^articlelist',views.articlelist,name='articlelist'),
 ]
