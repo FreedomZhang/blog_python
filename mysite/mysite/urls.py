@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^add/',views.addview,name='add'),
     url(r'^addArticle/',views.addArticle,name='addArticle'),
     url(r'^articlelist',views.articlelist,name='articlelist'),
+    url(r'^article_remove',views.article_remove,name='article_remove')
 ]

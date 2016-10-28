@@ -7,7 +7,8 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
-
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
 def index(request):
     article=Article.objects.all()
     tclass=Tclass.objects.all()
@@ -69,6 +70,16 @@ def log_out(request):
 #@login_required
 def aedit(request):
     pass
+
+@csrf_exempt
+def article_remove(request):
+    if request.method == 'GET':
+        return render(request, '', {})
+    if request.method == 'POST':
+        Rid=request.POST['id']
+        article=get_object_or_404(Article,id=Rid)
+        article.delete()
+        return  HttpResponse('OK')
 
 
 def articlelist(request):

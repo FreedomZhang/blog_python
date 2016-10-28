@@ -9,7 +9,9 @@
                         <p><span class="glyphicon glyphicon-tag"></span>{{  foo.className }}  &nbsp;&nbsp;&nbsp;&nbsp;
                             <span class="glyphicon glyphicon-calendar">:</span>{{ foo.releaseTime }}
                         </p>
-                        <p>{{ foo.article|slice:"120" }}......</p>
+                        {% autoescape off %}
+            {{ foo.article|slice:"120" }}......
+                        {% endautoescape %}
                     </div>
                 {% endfor %}
                 <div style="text-align: center">

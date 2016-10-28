@@ -4,32 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-     <link rel="stylesheet" href="{% static 'dist/css/bootstrap.css' %}">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'layer/skin/layer.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static 'dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'layer/layer.js' %}"></script>
 </head>
 <body>
 <table class="table table-hover">
     <tr>
+        <td></td>
         <td>标题</td>
         <td>分类</td>
         <td>标签</td>
         <td>操作</td>
     </tr>
 
-        {% for foo in article %}
-            <tr>
+    {% for foo in article %}
+        <tr id="{{ foo.pk }}">
+            <td></td>
             <td>{{ foo.titele }}</td>
             <td>{{ foo.className }}</td>
             <td>{{ foo.labels }}</td>
             <td>
-                <span><button type="button" class="btn btn-info">删除</button></span>
+                <span><button type="button" class="btn btn-info" onclick="article_del(this)">删除</button></span>
                 <span><button type="button" class="btn btn-info">修改</button></span>
             </td>
-            </tr>
-        {% endfor %}
+        </tr>
+    {% endfor %}
 
 
 </table>
 </body>
+<script type="text/javascript">
+
+    function article_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+            var Rid = $(obj).parents("tr").attr('id');
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'article_remove' %}',
+                data: { id: Rid },
+                cache: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data == "OK") {
+                        $(obj).parents("tr").remove();
+                        //var Rcon = $("#RCount").text();
+                        //var Rcont = Number(Rcon) - 1
+                        //$("#RCount").text(Rcont);
+                        layer.msg('删除完成', { icon: 1 });
+                    } else {
+                        layer.msg('删除失败', { icon: 2 });
+                    }
+                }
+            });
+        });
+    }
+
+</script>
 </html>
