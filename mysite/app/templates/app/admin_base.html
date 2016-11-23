@@ -36,7 +36,7 @@
                 <li><a href="#">预留菜单</a></li>
                 <li><a href="#">预留菜单</a></li>
                 <li><a href="#">预留菜单</a></li>
-                <li><a href="#">预留菜单</a></li>
+                <li><a href="#">{{ username }}</a></li>
             </ul>
         </div>
     </div>
@@ -45,14 +45,12 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active" target="iframecon"><a href="#">菜单</a></li>
-                <li><a href="{% url 'articlelist' %}" target="iframecon">菜单</a></li>
-                <li><a href="#" target="iframecon">菜单</a></li>
-                <li><a href="#" target="iframecon">菜单</a></li>
+                <li class="active" ><a href="{% url 'articlelist' %}" target="iframecon">查看</a></li>
+                <li target="iframecon"><a href="{% url 'add' %}" target="iframecon">添加文章</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <iframe src="{% url 'add' %}" id="iframecon" name="iframecon" scrolling="no" style="height: 1000px;width:100%;"  frameborder="0">
+            <iframe src="{% url 'articlelist' %}" id="iframecon" name="iframecon" scrolling="no" style="height: 1000px;width:100%;"  frameborder="0">
 
             </iframe>
         </div>

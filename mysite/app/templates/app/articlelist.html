@@ -42,17 +42,15 @@
         layer.confirm('确认要删除吗？', function (index) {
             var Rid = $(obj).parents("tr").attr('id');
             $.ajax({
-                type: 'POST',
+                type: 'post',
                 url: '{% url 'article_remove' %}',
                 data: { id: Rid },
                 cache: false,
-                dataType: 'json',
+                dataType: 'html',
                 success: function (data) {
+                    console.log('测试');
                     if (data == "OK") {
                         $(obj).parents("tr").remove();
-                        //var Rcon = $("#RCount").text();
-                        //var Rcont = Number(Rcon) - 1
-                        //$("#RCount").text(Rcont);
                         layer.msg('删除完成', { icon: 1 });
                     } else {
                         layer.msg('删除失败', { icon: 2 });
