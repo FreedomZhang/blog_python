@@ -4,3 +4,4 @@
 后台添加文章富文本编辑器为tinymce
 代码高亮显示插件为prism
 后台登录账号admin 密码admin123456
+**需要安装Python的rest_framework插件 视图中设计到一个API**
