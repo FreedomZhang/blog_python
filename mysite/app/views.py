@@ -1,4 +1,5 @@
 #coding:utf-8
+import  re
 from django.shortcuts import render,get_object_or_404
 from .models import Article,Tclass,Label
 from django.contrib.auth.decorators import login_required
@@ -8,16 +9,16 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt,csrf_protect
-from rest_framework import request,permissions
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+#from rest_framework import request,permissions
+#from rest_framework.response import Response
+#from rest_framework.decorators import api_view, permission_classes
 from django.core import serializers
-import  re
-
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.conf.urls import handler400,handler403,handler404,handler500
 
 
 def index(request):
-    article=Article.objects.all()
+    article=Article.objects.all()[:4]
     tclass=Tclass.objects.all()
     tlables=Label.objects.all()
     return  render(request,'app/index.html',{'article':article,'tclass':tclass,'tlables':tlables})
@@ -122,8 +123,16 @@ def articlelist(request):
     article=Article.objects.all()
     return  render(request,'app/articlelist.html',{'article':article})
 
-
-
+#分页
+@csrf_exempt
+def GetPageList(request):
+    if request.method == 'POST':
+        #page = request.POST['page']
+        arcount=int(request.POST['arcount'])
+        artic=Article.objects.all()[arcount:arcount+4]
+        json_data = serializers.serialize("json", artic)
+        return HttpResponse(json_data,content_type='application/javascript')
+'''
 @api_view(['GET','PUT','DELETE','POST'])
 @permission_classes((permissions.AllowAny,))
 def GetT(request):
@@ -150,7 +159,9 @@ def GetT(request):
         response["Access-Control-Max-Age"] = "1000"
         response["Access-Control-Allow-Headers"] = "*"
         return response
-
-
+'''
+#404页码
+def page_not_found404(request):
+    return render(request,'404.html',{})
 
 
